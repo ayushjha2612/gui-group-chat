@@ -25,8 +25,9 @@ def start_server():
         client_name= connection.recv(1024).decode(FORMAT)
         connections.append(connection)
 
-        print(f"{client_name} has connected to the server")
-        messageAll(f"{client_name} has joined the chat".encode(FORMAT))
+        print(f"\n{client_name} has connected to the server")
+        print(f"Active Connections: {len(connections)}")
+        messageAll(f"{client_name} has joined the chat\nMembers online : {len(connections)}".encode(FORMAT))
 
         thread = threading.Thread(target=handle_client, args=(connection, address, client_name))
         thread.start()
@@ -45,10 +46,12 @@ def handle_client(conn, addr, client_name):
         else:
             messageAll(message.encode(FORMAT))
 
-    messageAll(f"{client_name} has the chat".encode(FORMAT))
-    print(f"{client_name} has disconnected from the server")
-    connections.remove(conn)
-
+    print(f"\n{client_name} has disconnected from the server")
+    print(f"Active Connections: {len(connections)-1}")
     
+    messageAll(f"{client_name} has left the chat\nMembers online : {len(connections)-1}".encode(FORMAT))
+    connections.remove(conn)
+    
+
 
 start_server()
