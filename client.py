@@ -23,15 +23,16 @@ def start_client():
 	login_window= Toplevel()
 	login_window.title("Login Window")
 	login_window.geometry("550x400")
+	login_window.configure(bg='light slate blue')
 
-	msg= Label(login_window, text= "Enter your Name : ",font=("Times", "14", "bold"))
+	msg= Label(login_window, text= "Enter your Name : ",font=("Times", "14", "bold"),bg='light slate blue')
 	msg.place(relwidth=0.4, relheight=0.1, relx=0.075, rely=0.25)
 
 	entry = Entry(login_window, font=("Times", "14"))
 	entry.place(relwidth=0.45, relheight=0.09, relx=0.475, rely=0.25)
 	entry.focus()
 
-	login_button= Button(login_window, text="Login", font=("Times", "14", "bold"),
+	login_button= Button(login_window, text="Login", font=("Times", "14", "bold"), bg='PaleTurquoise3',
 						command=lambda: start_chat(entry.get(),login_window))
 
 	login_button.place(relwidth=0.4, relheight=0.12, relx=0.3, rely=0.5)
@@ -46,26 +47,27 @@ def start_chat(name, login_window):
 
 	login_window.destroy()
 	window.deiconify()
+	window.config(bg= 'light cyan')
 
-	text_box = Text(window, font=("Times", "14"))
+	text_box = Text(window, font=("Times", "14"), bg='PaleTurquoise1')
 	text_box.place(relheight=0.85,relwidth=1, rely=0.065)
 
 	rcv = threading.Thread(target=receive_messages, args=(name, text_box))
 	rcv.start()
 
 	your_name = Label(window, text="You : " +name, font= ("Times", "15", "bold"))
-	your_name.place(relwidth=1, relheight=0.03, rely=0.02)
+	your_name.place(relwidth=1, relheight=0.05, rely=0)
 
 	line = Label(window,bg='dim gray')
-	line.place(relwidth=1, rely=0.055, relheight=0.012)
+	line.place(relwidth=1, rely=0.055, relheight=0.01)
 
 	enter_message = Entry(window, font=("Times", "15"))
 	enter_message.place(relwidth=0.73,relheight=0.055, rely=0.935, relx=0.011)
 	enter_message.focus()
 
 	send = Button( window, text="Send", font= ("Times", "16", "bold"),
-	              command=lambda: send_messages(name,enter_message))
-	send.place(relwidth=0.23, relheight=0.0625, relx=0.77, rely=0.93)
+	              command=lambda: send_messages(name,enter_message), bg='pale green')
+	send.place(relwidth=0.21, relheight=0.0625, relx=0.77, rely=0.93)
 
 	scrollbar = Scrollbar(text_box)
 	scrollbar.place(relheight=1,	relx=0.974)
