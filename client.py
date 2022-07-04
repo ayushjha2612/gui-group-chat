@@ -7,11 +7,13 @@ SERVER = socket.gethostbyname(socket.gethostname())
 ADDRESS = (SERVER, PORT)
 FORMAT = "utf-8"
 
-
+# Intialising Client socket and connecting to server
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(ADDRESS)
 
 
+
+# Client GUI
 def start_client():
 
 	global window
@@ -42,7 +44,7 @@ def start_client():
 	client_socket.close()
 
 
-
+# GUI Chatroom
 def start_chat(name, login_window):
 
 	login_window.destroy()
@@ -51,7 +53,8 @@ def start_chat(name, login_window):
 
 	text_box = Text(window, font=("Times", "14"), bg='PaleTurquoise1')
 	text_box.place(relheight=0.85,relwidth=1, rely=0.065)
-
+    
+	# Thread to start receiving messages
 	rcv = threading.Thread(target=receive_messages, args=(name, text_box))
 	rcv.start()
 
